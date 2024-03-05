@@ -8,9 +8,9 @@ CYAN		:= \033[1;36m
 CXX			:= g++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS		:= megaphone.cpp
+SRCS		:= PhoneBook.cpp
 OBJS		:= $(SRCS:.cpp=.o)
-NAME		:= Megaphone
+NAME		:= MyAwesomePhoneBook
 
 all: $(NAME)
 
