@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 
 int main(int ac, char** av)
 {
@@ -7,14 +8,8 @@ int main(int ac, char** av)
 	else
 	{
 		for (int i = 1; av[i]; i++)
-		{
 			for (int j = 0; av[i][j]; j++)
-			{
-				if (av[i][j] >= 'a' && av[i][j] <= 'z')
-					av[i][j] -= 32;
-				std::cout << av[i][j];
-			}
-		}
+				std::cout << (char)std::toupper(av[i][j]);
 		std::cout << std::endl;
 	}
 	return 0;
