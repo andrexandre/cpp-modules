@@ -8,7 +8,7 @@ CYAN		:= \033[1;36m
 CXX			:= g++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS		:= PhoneBook.cpp
+SRCS		:= PhoneBook.cpp Contact.cpp
 OBJS		:= $(SRCS:.cpp=.o)
 NAME		:= MyAwesomePhoneBook
 
