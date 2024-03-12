@@ -10,9 +10,9 @@ WHITE		:= \033[1;37m
 CXX			:= g++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS		:= PhoneBook.cpp Contact.cpp
+SRCS		:= .cpp
 OBJS		:= $(SRCS:.cpp=.o)
-NAME		:= MyAwesomePhoneBook
+NAME		:= 
 
 all: $(NAME)
 

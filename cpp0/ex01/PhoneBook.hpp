@@ -16,15 +16,16 @@
 #include <string> // std::string
 #include "Contact.hpp"
 
+#define MAX_CONTACTS 8
+
 class	PhoneBook {
 public:
 	PhoneBook();
 	void	ADD();
 	void	SEARCH();
 private:
-	void	Display();
-	void	PrintField(std::string str);
-	Contact	c[8];
+	void	DisplayTable();
+	Contact	c[MAX_CONTACTS];
 	int		index;
 };
 

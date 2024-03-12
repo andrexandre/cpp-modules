@@ -1,6 +1,6 @@
 #include "PhoneBook.hpp"
 
-void replaceChar(std::string& str, char toSearch, char toReplace)
+void ReplaceChar(std::string& str, char toSearch, char toReplace)
 {
 	for (size_t i = 0; i < str.length(); i++)
 		if (str[i] == toSearch)
@@ -10,13 +10,13 @@ void replaceChar(std::string& str, char toSearch, char toReplace)
 void PhoneBook::ADD()
 {
 	std::string str;
-	if (index == 8)
+	if (index == MAX_CONTACTS)
 		index = 0;
 	for (int i = 0; i < 5; i++)
 	{
 		std::cout << GREEN;
 		if (i == 0)
-			std::cout << "Enter name: ";
+			std::cout << "Enter first name: ";
 		else if (i == 1)
 			std::cout << "Enter last name: ";
 		else if (i == 2)
@@ -27,18 +27,22 @@ void PhoneBook::ADD()
 			std::cout << "Enter secret: ";
 		std::cout << RESET;
 		std::getline(std::cin, str);
-		if (str.find_first_not_of(" \t") == std::string::npos)
-			return (c[index].clear());
+		if (std::cin.eof())
+			return;
+		if (str.empty() || str.find_first_not_of(" \t") == std::string::npos)
+		{
+			std::cout << RED "Invalid input" RESET << std::endl;
+			i--;
+			continue;
+		}
 		if (str.find_first_of('\t') != std::string::npos)
-			replaceChar(str, '\t', ' ');
-		if (std::cin.eof() || str.empty())
-			return (c[index].clear());
+			ReplaceChar(str, '\t', ' ');
 		c[index].set_name(i, str);
 	}
 	index++;
 }
 
-void PhoneBook::PrintField(std::string str)
+void PrintField(std::string str)
 {
 	std::cout << "|";
 	if (str.length() > 10)
@@ -53,7 +57,7 @@ void PhoneBook::PrintField(std::string str)
 	}
 }
 
-void PhoneBook::Display()
+void PhoneBook::DisplayTable()
 {
 	std::cout << std::right << CYAN;
 	PrintField("Index");
@@ -61,7 +65,7 @@ void PhoneBook::Display()
 	PrintField("Last Name");
 	PrintField("Nickname");
 	std::cout << "|" << std::endl;
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < MAX_CONTACTS; i++)
 	{
 		if (c[i].get_name(0).empty())
 			break;
@@ -83,9 +87,8 @@ void PhoneBook::SEARCH()
 		std::cout << BLUE "Empty phonebook" RESET << std::endl;
 		return;
 	}
-	Display();
+	DisplayTable();
 	std::string	str;
-	int i;
 	std::cout << GREEN "Enter index: " RESET;
 	std::getline(std::cin, str);
 	if (str.empty() || str[1] || std::cin.eof())
@@ -93,8 +96,8 @@ void PhoneBook::SEARCH()
 		std::cout << RED "Invalid index" RESET << std::endl;
 		return;
 	}
-	i = str[0] - '0';
-	if (i < 1 || i > 8)
+	int i = str[0] - '0';
+	if (i < 1 || i > MAX_CONTACTS)
 	{
 		std::cout << RED "Invalid index" RESET << std::endl;
 		return;
@@ -133,9 +136,9 @@ int main(void)
 		std::getline(std::cin, cmd);
 		if (cmd.empty())
 			continue;
-		if (cmd == "ADD")
+		if (cmd == "ADD" || cmd == "a")
 			mafb.ADD();
-		else if (cmd == "SEARCH")
+		else if (cmd == "SEARCH" || cmd == "s")
 			mafb.SEARCH();
 		else if (cmd == "EXIT" || std::cin.eof())
 			break;
