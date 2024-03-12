@@ -10,6 +10,7 @@ class	Contact
 public:
 	std::string	get_name(int i);
 	void		set_name(int i, std::string str);
+	void		clear();
 private:
 	std::string	name;
 	std::string	last_name;

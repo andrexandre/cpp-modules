@@ -1,35 +1,40 @@
 #include "PhoneBook.hpp"
 
-void	PhoneBook::ADD()
+void replaceChar(std::string& str, char toSearch, char toReplace)
 {
-	std::string	str;
+	for (size_t i = 0; i < str.length(); i++)
+		if (str[i] == toSearch)
+			str[i] = toReplace;
+}
+
+void PhoneBook::ADD()
+{
+	std::string str;
 	if (index == 8)
 		index = 0;
-	std::cout << "Enter name: ";
-	std::getline(std::cin, str);
-	if (std::cin.eof() || str.empty())
-		return;
-	c[index].set_name(0, str);
-	std::cout << "Enter lname: ";
-	std::getline(std::cin, str);
-	if (std::cin.eof() || str.empty())
-		return;
-	c[index].set_name(1, str);
-	std::cout << "Enter nname: ";
-	std::getline(std::cin, str);
-	if (std::cin.eof() || str.empty())
-		return;
-	c[index].set_name(2, str);
-	std::cout << "Enter ph nr: ";
-	std::getline(std::cin, str);
-	if (std::cin.eof() || str.empty())
-		return;
-	c[index].set_name(3, str);
-	std::cout << "Enter dk sc: ";
-	std::getline(std::cin, str);
-	if (std::cin.eof() || str.empty())
-		return;
-	c[index].set_name(4, str);
+	for (int i = 0; i < 5; i++)
+	{
+		std::cout << GREEN;
+		if (i == 0)
+			std::cout << "Enter name: ";
+		else if (i == 1)
+			std::cout << "Enter last name: ";
+		else if (i == 2)
+			std::cout << "Enter nickname: ";
+		else if (i == 3)
+			std::cout << "Enter phone num: ";
+		else if (i == 4)
+			std::cout << "Enter secret: ";
+		std::cout << RESET;
+		std::getline(std::cin, str);
+		if (str.find_first_not_of(" \t") == std::string::npos)
+			return (c[index].clear());
+		if (str.find_first_of('\t') != std::string::npos)
+			replaceChar(str, '\t', ' ');
+		if (std::cin.eof() || str.empty())
+			return (c[index].clear());
+		c[index].set_name(i, str);
+	}
 	index++;
 }
 
@@ -50,7 +55,7 @@ void PhoneBook::PrintField(std::string str)
 
 void PhoneBook::Display()
 {
-	std::cout << std::right;
+	std::cout << std::right << CYAN;
 	PrintField("Index");
 	PrintField("First Name");
 	PrintField("Last Name");
@@ -68,32 +73,45 @@ void PhoneBook::Display()
 		PrintField(c[i].get_name(2));
 		std::cout << "|" << std::endl;
 	}
+	std::cout << RESET;
 }
 
-void	PhoneBook::SEARCH()
+void PhoneBook::SEARCH()
 {
+	if (c[0].get_name(0).empty())
+	{
+		std::cout << BLUE "Empty phonebook" RESET << std::endl;
+		return;
+	}
 	Display();
 	std::string	str;
 	int i;
-	std::cout << "Enter index: ";
+	std::cout << GREEN "Enter index: " RESET;
 	std::getline(std::cin, str);
 	if (str.empty() || str[1] || std::cin.eof())
 	{
-		std::cout << "Invalid index" << std::endl;
+		std::cout << RED "Invalid index" RESET << std::endl;
 		return;
 	}
 	i = str[0] - '0';
-	if (i < 0 || i > 7)
+	if (i < 1 || i > 8)
 	{
-		std::cout << "Invalid index" << std::endl;
+		std::cout << RED "Invalid index" RESET << std::endl;
 		return;
 	}
+	i--;
 	if (c[i].get_name(0).empty())
 	{
-		std::cout << "Empty contact" << std::endl;
+		std::cout << BLUE "Empty contact" RESET << std::endl;
 		return;
 	}
-	std::cout << i << " = " << c[i].get_name(0).empty() << std::endl;
+	std::cout << std::endl << BLUE;
+	std::cout << "First Name: " << c[i].get_name(0) << std::endl;
+	std::cout << " Last Name: " << c[i].get_name(1) << std::endl;
+	std::cout << "  Nickname: " << c[i].get_name(2) << std::endl;
+	std::cout << " Phone Num: " << c[i].get_name(3) << std::endl;
+	std::cout << "    Secret: " << c[i].get_name(4) << std::endl;
+	std::cout << RESET;
 }
 
 PhoneBook::PhoneBook()
@@ -101,28 +119,30 @@ PhoneBook::PhoneBook()
 	index = 0;
 }
 
-int	main(void)
+int main(void)
 {
-	PhoneBook	afb;
+	PhoneBook	mafb;
 	std::string	cmd;
-	std::cout << "Welcome to MyAwesomePhoneBook" << std::endl;
+	std::cout << WHITE "Welcome to MyAwesomePhoneBook" << std::endl;
 	std::cout << "Please enter your command" << std::endl;
-	std::cout << "Commands: ADD, SEARCH, EXIT" << std::endl;
+	std::cout << "Commands: " GREEN "ADD" RESET ", " BLUE "SEARCH";
+	std::cout << RESET ", " RED "EXIT" RESET << std::endl;
 	while (!std::cin.eof())
 	{
 		std::cout << "> ";
 		std::getline(std::cin, cmd);
 		if (cmd.empty())
 			continue;
-		if (cmd == "ADD" || cmd == "a")
-			afb.ADD();
-		else if (cmd == "SEARCH" || cmd == "s")
-			afb.SEARCH();
+		if (cmd == "ADD")
+			mafb.ADD();
+		else if (cmd == "SEARCH")
+			mafb.SEARCH();
 		else if (cmd == "EXIT" || std::cin.eof())
 			break;
 		else
-			std::cout << "Invalid command" << std::endl;
+			std::cout << RED "Invalid command" RESET << std::endl;
 	}
-	std::cout << std::endl;
+	if (std::cin.eof())
+		std::cout << std::endl;
 	return 0;
 }

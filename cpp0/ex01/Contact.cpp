@@ -1,6 +1,6 @@
 #include "Contact.hpp"
 
-std::string	Contact::get_name(int i)
+std::string Contact::get_name(int i)
 {
 	if (i == 0)
 		return (name);
@@ -30,4 +30,13 @@ void Contact::set_name(int i, std::string str)
 		darkest_secret = str;
 	else
 		std::cerr << "Invalid index" << std::endl;
+}
+
+void Contact::clear()
+{
+	name.clear();
+	last_name.clear();
+	nickname.clear();
+	phone_number.clear();
+	darkest_secret.clear();
 }
