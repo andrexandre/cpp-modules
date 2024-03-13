@@ -10,9 +10,10 @@ WHITE		:= \033[1;37m
 CXX			:= g++
 CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS		:= .cpp
-OBJS		:= $(SRCS:.cpp=.o)
-NAME		:= 
+OBJSDIR		:= objs
+SRCS		:= $(wildcard *.cpp)
+OBJS		:= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
+NAME		:= Zombie
 
 all: $(NAME)
 
@@ -20,11 +21,12 @@ $(NAME): $(OBJS)
 	@$(CXX) $(CXXFLAGS) $^ -o $@
 	@echo "\n$(BLUE)$(NAME)$(END) $(GREEN)stuff compiled$(END) 💻\n"
 
-%.o: %.cpp
+$(OBJSDIR)/%.o: %.cpp
+	@mkdir -p $(OBJSDIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	@rm -rf $(OBJSDIR)
 
 fclean: clean
 	@rm -f $(NAME)
@@ -34,6 +36,9 @@ re: fclean all
 
 run: $(NAME)
 	@./$(NAME)
+
+v: $(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 e: fclean
 

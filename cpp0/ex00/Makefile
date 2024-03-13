@@ -35,6 +35,9 @@ re: fclean all
 run: $(NAME)
 	@./$(NAME)
 
+v: $(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+
 e: fclean
 
 .PHONY: all clean fclean re run e

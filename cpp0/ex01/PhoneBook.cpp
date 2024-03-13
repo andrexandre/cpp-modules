@@ -136,9 +136,9 @@ int main(void)
 		std::getline(std::cin, cmd);
 		if (cmd.empty())
 			continue;
-		if (cmd == "ADD" || cmd == "a")
+		if (cmd == "ADD")
 			mafb.ADD();
-		else if (cmd == "SEARCH" || cmd == "s")
+		else if (cmd == "SEARCH")
 			mafb.SEARCH();
 		else if (cmd == "EXIT" || std::cin.eof())
 			break;
