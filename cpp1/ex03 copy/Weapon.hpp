@@ -12,7 +12,6 @@ using std::cin;
 class Weapon
 {
 	public:
-		Weapon(void);
 		Weapon(string type);
 		string const &getType();
 		void setType(string type);
