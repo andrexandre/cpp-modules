@@ -4,16 +4,22 @@
 #include <iostream> // std::cout
 #include <string> // std::string
 
-class	Zombie {
-public:
-	Zombie(std::string name);
-	~Zombie();
-	void	announce(void);
-private:
-	std::string	name;
+using std::string;
+using std::endl;
+using std::cout;
+
+class	Zombie
+{
+	public:
+		Zombie(string name);
+		~Zombie();
+		void	announce(void);
+
+	private:
+		string	name;
 };
 
-Zombie* newZombie(std::string name);
-void randomChump(std::string name);
+Zombie* newZombie(string name);
+void randomChump(string name);
 
 #endif

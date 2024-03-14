@@ -1,15 +1,15 @@
 #include "Zombie.hpp"
 // #include <sstream>
-// std::string toString(int value)
+// string toString(int value)
 // {
-// 	std::stringstream ss;
+// 	stringstream ss;
 // 	ss << value;
 // 	return ss.str();
 // }
-		// std::string temp = name;
+		// string temp = name;
 		// temp = name + toString(i);
 
-Zombie* zombieHorde(int N, std::string name)
+Zombie* zombieHorde(int N, string name)
 {
 	if (N <= 0 || N > 1000000)
 		return NULL;

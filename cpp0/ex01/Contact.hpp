@@ -5,17 +5,22 @@
 #include <iostream> // std::cout
 #include <string> // std::string
 
+using std::string;
+using std::endl;
+using std::cout;
+
 class	Contact
 {
-public:
-	std::string	get_name(int i);
-	void		set_name(int i, std::string str);
-private:
-	std::string	name;
-	std::string	last_name;
-	std::string	nickname;
-	std::string	phone_number;
-	std::string	darkest_secret;
+	public:
+		string	get_name(int i);
+		void	set_name(int i, string str);
+
+	private:
+		string	name;
+		string	last_name;
+		string	nickname;
+		string	phone_number;
+		string	darkest_secret;
 };
 
 #endif

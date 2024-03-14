@@ -18,15 +18,22 @@
 
 #define MAX_CONTACTS 8
 
-class	PhoneBook {
-public:
-	PhoneBook();
-	void	ADD();
-	void	SEARCH();
-private:
-	void	DisplayTable();
-	Contact	c[MAX_CONTACTS];
-	int		index;
+using std::string;
+using std::endl;
+using std::cout;
+using std::cin;
+
+class	PhoneBook
+{
+	public:
+		PhoneBook();
+		void	ADD();
+		void	SEARCH();
+
+	private:
+		void	DisplayTable();
+		Contact	c[MAX_CONTACTS];
+		int		index;
 };
 
 #endif
