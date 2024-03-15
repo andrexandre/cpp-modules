@@ -11,7 +11,7 @@ class HumanA
 
 	private:
 		string name;
-		Weapon weapon;
+		Weapon &weapon;
 };
 
 #endif

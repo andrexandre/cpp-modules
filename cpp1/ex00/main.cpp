@@ -1,5 +1,7 @@
 #include "Zombie.hpp"
 
+// using namespace
+
 int	main()
 {
 	randomChump("Chump");

@@ -34,11 +34,13 @@ fclean: clean
 
 re: fclean all
 
+VARS := file facilisi NOT_FACIL
+
 run: $(NAME)
-	@./$(NAME)
+	@./$(NAME) $(VARS)
 
 v: $(NAME)
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)
 
 e: fclean
 

@@ -1,12 +1,8 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(void)
+Weapon::Weapon(string weaponType)
 {
-}
-
-Weapon::Weapon(string type)
-{
-	this->type = type;
+	this->setType(weaponType);
 }
 
 string const &Weapon::getType()
@@ -14,8 +10,7 @@ string const &Weapon::getType()
 	return (this->type);
 }
 
-void Weapon::setType(string type)
+void Weapon::setType(string weaponType)
 {
-	this->type.clear();
-	this->type = type;
+	this->type = weaponType;
 }

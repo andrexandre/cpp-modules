@@ -7,15 +7,13 @@
 using std::string;
 using std::endl;
 using std::cout;
-using std::cin;
 
 class Weapon
 {
 	public:
-		Weapon(void);
-		Weapon(string type);
+		Weapon(string weaponType);
 		string const &getType();
-		void setType(string type);
+		void setType(string weaponType);
 
 	private:
 		string type;

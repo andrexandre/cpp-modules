@@ -13,7 +13,7 @@ CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
 OBJSDIR		:= objs
 SRCS		:= $(wildcard *.cpp)
 OBJS		:= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
-NAME		:= Zombie
+NAME		:= main
 
 all: $(NAME)
 
@@ -34,20 +34,13 @@ fclean: clean
 
 re: fclean all
 
+VARS := file facilisi NOT_FACIL
+
 run: $(NAME)
-	@./$(NAME)
+	@./$(NAME) $(VARS)
 
 v: $(NAME)
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
-
-check:
-	@grep -r -o -w '\w*alloc\w*' ..
-	@grep -r -o -w '\w*printf\w*' ..
-	@grep -r -o -w '\w*free\w*' ..
-	@grep -r -o -w '\w*using namespace\w*' ..
-	@grep -r -o -w '\w*friend\w*' ..
-	@echo
-	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98\w*' ..
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)
 
 e: fclean
 
