@@ -4,9 +4,10 @@
 
 int	main()
 {
-	randomChump("Chump");
-
 	Zombie*	zombie = newZombie("Zombie");
+	zombie->announce();
 	delete zombie;
+
+	randomChump("Chump");
 	return 0;
 }
