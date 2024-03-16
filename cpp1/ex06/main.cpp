@@ -1,12 +1,13 @@
 #include "Harl.hpp"
 
-int main(void)
+int main(int ac, char **av)
 {
+	if (ac != 2 || !av[1][0])
+	{
+		cout << "Usage: " << av[0] << " <log level>" << endl;
+		return 0;
+	}
 	Harl harl;
-	harl.complain("DEBUG");
-	// harl.complain("INFO");
-	// harl.complain("WARNING");
-	// harl.complain("ERROR");
-	// harl.complain("UNKNOWN");
+	harl.complain(av[1]);
 	return 0;
 }

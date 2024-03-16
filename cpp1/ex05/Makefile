@@ -34,7 +34,7 @@ fclean: clean
 
 re: fclean all
 
-VARS := file facilisi NOT_FACIL
+VARS := file
 
 run: $(NAME)
 	@./$(NAME) $(VARS)
