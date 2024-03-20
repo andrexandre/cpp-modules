@@ -32,6 +32,8 @@ Fixed::Fixed(int const value)
 	this->_value = (value << _fractionalBits);
 }
 
+// 1 << _fractionalBits = 256 (2^8)
+// if value = 10, 15 * 256 = 3840
 Fixed::Fixed(const float value) 
 {
 	co << "Float constructor called" << nl;
