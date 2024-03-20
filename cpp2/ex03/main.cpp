@@ -11,7 +11,7 @@ int main( void )
 	Point p(2.0f, 2.5f);
 
 	co << "p is inside the △: " << bsp(a, b, c, p) << nl;
-	Point q(0.01f, 0.01f);
+	Point q(5.0f, 5.0f);
 	co << "q is inside the △: " << bsp(a, b, c, q) << nl;
 	return 0;
 }
