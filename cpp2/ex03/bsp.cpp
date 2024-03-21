@@ -16,5 +16,5 @@ bool bsp(Point const a, Point const b, Point const c, Point const point)
 	float A_PCA = area(point, c, a);
 	float A_PAB = area(point, a, b);
 
-	return fabs(A_ABC == A_PBC + A_PCA + A_PAB);
+	return (A_ABC == A_PBC + A_PCA + A_PAB);
 }
