@@ -9,7 +9,8 @@
 #include <string> // std::string
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : public ClapTrap
+{
 	public:
 		ScavTrap();
 		ScavTrap(ScavTrap const &src);

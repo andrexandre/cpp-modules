@@ -22,9 +22,6 @@ ScavTrap::ScavTrap(str name) : ClapTrap(name)
 
 ScavTrap::ScavTrap(ScavTrap const &src) : ClapTrap(src)
 {
-	this->_hitPoints = 100;
-	this->_energyPoints = 50;
-	this->_attackDmg = 20;
 	co << GREEN;
 	co << "ScavTrap copy constructor called" << nl;
 	co << RESET;

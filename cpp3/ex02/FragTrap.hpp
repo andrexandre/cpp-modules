@@ -7,8 +7,9 @@
 
 #include <iostream> // std::cout
 #include <string> // std::string
+#include "ClapTrap.hpp"
 
-class FragTrap
+class FragTrap : public ClapTrap
 {
 	public:
 		FragTrap();
