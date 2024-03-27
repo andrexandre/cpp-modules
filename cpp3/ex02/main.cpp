@@ -4,11 +4,10 @@
 
 int main()
 {
-	// FragTrap ft("F. Guy");
-	// ft.attack("them");
-	// ft.takeDamage(5);
-	// ft.beRepaired(5);
-	// ft.guardGate();
-	// virtual void?
+	FragTrap ft("F. Guy");
+	ft.attack("them");
+	ft.takeDamage(5);
+	ft.beRepaired(5);
+	ft.highFivesGuys();
 	return 0;
 }
