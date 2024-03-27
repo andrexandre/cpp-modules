@@ -1,18 +1,24 @@
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap("default" + str("_clap_trap")), 
-ScavTrap("default" + str("_scav_trap")), FragTrap("default" + str("_frag_trap"))
+DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"), 
+ScavTrap("default"), FragTrap("default")
 {
 	_name = "default";
+	this->ClapTrap::_name = "default_clap_name";FragTrap::_hitPoints = 100;
+	ScavTrap::_energyPoints = 50;
+	FragTrap::_attackDmg = 30;
 	co << RED;
 	co << "DiamondTrap " << _name << " constructor called" << nl;
 	co << RESET;
 }
 
-DiamondTrap::DiamondTrap(str name) : ClapTrap(name + str("_clap_trap")), 
-ScavTrap(name + str("_scav_trap")), FragTrap(name + str("_frag_trap"))
+DiamondTrap::DiamondTrap(str name) : ClapTrap(name + str("_clap_name")), 
+ScavTrap(name), FragTrap(name)
 {
 	_name = name;
+	this->ClapTrap::_name = name + "_clap_name";FragTrap::_hitPoints = 100;
+	ScavTrap::_energyPoints = 50;
+	FragTrap::_attackDmg = 30;
 	co << RED;
 	co << "DiamondTrap " << _name << " constructor called" << nl;
 	co << RESET;
