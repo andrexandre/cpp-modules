@@ -4,7 +4,8 @@ DiamondTrap::DiamondTrap() : ClapTrap("default_clap_name"),
 ScavTrap("default"), FragTrap("default")
 {
 	_name = "default";
-	this->ClapTrap::_name = "default_clap_name";FragTrap::_hitPoints = 100;
+	this->ClapTrap::_name = "default_clap_name";
+	FragTrap::_hitPoints = 100;
 	ScavTrap::_energyPoints = 50;
 	FragTrap::_attackDmg = 30;
 	co << RED;
@@ -16,7 +17,8 @@ DiamondTrap::DiamondTrap(str name) : ClapTrap(name + str("_clap_name")),
 ScavTrap(name), FragTrap(name)
 {
 	_name = name;
-	this->ClapTrap::_name = name + "_clap_name";FragTrap::_hitPoints = 100;
+	this->ClapTrap::_name = name + "_clap_name";
+	FragTrap::_hitPoints = 100;
 	ScavTrap::_energyPoints = 50;
 	FragTrap::_attackDmg = 30;
 	co << RED;
