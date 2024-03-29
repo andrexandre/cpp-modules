@@ -18,8 +18,6 @@ class WrongCat : public WrongAnimal
 		WrongCat &operator=(WrongCat const &rhs);
 
 		void makeSound() const;
-
-	private:
 };
 
 #endif

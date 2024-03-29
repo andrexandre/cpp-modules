@@ -7,9 +7,10 @@
 
 #include <iostream> // std::cout
 #include <string> // std::string
-#include "Animal.hpp"
+#include "AAnimal.hpp"
+#include "Brain.hpp"
 
-class Dog : public Animal
+class Dog : public AAnimal
 {
 	public:
 		Dog();
@@ -18,6 +19,9 @@ class Dog : public Animal
 		Dog &operator=(Dog const &rhs);
 
 		void makeSound() const;
+
+	private:
+		Brain *brain;
 };
 
 #endif

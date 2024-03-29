@@ -42,15 +42,15 @@ run: re
 v: re
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)
 
-e: fclean
+output:
+	clang++ -W -Wall -Werror *.cpp
+	./a.out | cat -e > out
+	@echo "* shoots an ice bolt at bob *$$" > in
+	@echo "* heals bob's wounds *$$" >> in
+	@cat out
+	@diff -q out in >/dev/null && echo "OK" || echo "KO"
+	@rm -f a.out out in
 
-check:
-	@grep -r -o -w '\w*alloc\w*' ..
-	@grep -r -o -w '\w*printf\w*' ..
-	@grep -r -o -w '\w*free\w*' ..
-	@grep -r -o -w '\w*using namespace\w*' ..
-	@grep -r -o -w '\w*friend\w*' ..
-	@echo
-	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98\w*' ..
+e: fclean
 
 .PHONY: all clean fclean re run e

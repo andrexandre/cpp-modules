@@ -44,13 +44,4 @@ v: $(NAME)
 
 e: fclean
 
-check:
-	@grep -r -o -w '\w*alloc\w*' ..
-	@grep -r -o -w '\w*printf\w*' ..
-	@grep -r -o -w '\w*free\w*' ..
-	@grep -r -o -w '\w*using namespace\w*' ..
-	@grep -r -o -w '\w*friend\w*' ..
-	@echo
-	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98\w*' ..
-
 .PHONY: all clean fclean re run e

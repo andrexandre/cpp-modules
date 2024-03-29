@@ -5,6 +5,9 @@
 #include "WrongCat.hpp"
 
 /*
+Subtype Polymorphism is when a subclass can be used in place
+of a superclass for example a Dog can be used in place of Animal
+
 The virtual keyword is used when you want the compiler
 to use/point to the derived class's function instead of
 the base class's function
