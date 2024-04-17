@@ -42,14 +42,23 @@ run: re
 v: re
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)
 
-output:
-	clang++ -W -Wall -Werror *.cpp
-	./a.out | cat -e > out
+test:
+	@clang++ -W -Wall -Werror *.cpp
+	@./a.out | cat -e > out
 	@echo "* shoots an ice bolt at bob *$$" > in
 	@echo "* heals bob's wounds *$$" >> in
+	@echo What you should show:
+	@cat in
+	@echo
+	@echo What you actually show:
 	@cat out
+	@echo
 	@diff -q out in >/dev/null && echo "OK" || echo "KO"
 	@rm -f a.out out in
+
+output:
+	clang++ -W -Wall -Werror *.cpp
+	./a.out | cat -e
 
 e: fclean
 

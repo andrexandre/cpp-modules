@@ -7,7 +7,8 @@
 
 #include <iostream> // std::cout
 #include <string> // std::string
-#include "AMateria.hpp"
+
+class AMateria;
 
 class ICharacter
 {

@@ -4,7 +4,7 @@ Cure::Cure() : AMateria("cure")
 {
 }
 
-Cure::Cure(const Cure &src) : AMateria("cure")
+Cure::Cure(const Cure &src) : AMateria(src)
 {
 	*this = src;
 }
@@ -23,4 +23,9 @@ Cure &Cure::operator=(Cure const &rhs)
 Cure *Cure::clone() const
 {
 	return new Cure(*this);
+}
+
+void Cure::use(ICharacter &target)
+{
+	co << "* heals " << target.getName() << "'s wounds *" << nl;
 }

@@ -13,11 +13,10 @@ class AMateria
 {
 	public:
 		AMateria(AMateria const &src);
-		~AMateria();
+		virtual ~AMateria() {}
 		AMateria &operator=(AMateria const &rhs);
 
 		AMateria(std::string const &type);
-		// [...]
 
 		std::string const &getType() const;
 

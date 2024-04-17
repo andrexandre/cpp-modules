@@ -17,7 +17,12 @@ class MateriaSource : public IMateriaSource
 		~MateriaSource();
 		MateriaSource &operator=(MateriaSource const &rhs);
 
+		virtual void learnMateria(AMateria *m);
+		virtual AMateria* createMateria(std::string const & type);
+
 	private:
+		static const int	_invSize = 4;
+		AMateria *_inventory[_invSize];
 };
 
 #endif

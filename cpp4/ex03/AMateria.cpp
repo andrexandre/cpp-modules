@@ -10,10 +10,6 @@ AMateria::AMateria(const AMateria &src)
 	*this = src;
 }
 
-AMateria::~AMateria()
-{
-}
-
 AMateria &AMateria::operator=(AMateria const &rhs)
 {
 	if (this != &rhs)
@@ -23,7 +19,7 @@ AMateria &AMateria::operator=(AMateria const &rhs)
 
 std::string const &AMateria::getType() const
 {
-	return _type;
+	return this->_type;
 }
 
 void AMateria::use(ICharacter &target)
