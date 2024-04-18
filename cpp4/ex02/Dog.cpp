@@ -1,6 +1,6 @@
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : AAnimal()
 {
 	co << BLUE;
 	co << "Dog Default constructor called" << nl;
@@ -9,7 +9,7 @@ Dog::Dog()
 	type = "Dog";
 }
 
-Dog::Dog(const Dog &src)
+Dog::Dog(const Dog &src) : AAnimal(src)
 {
 	co << BLUE;
 	co << "Dog Copy constructor called" << nl;
@@ -44,4 +44,19 @@ void Dog::makeSound() const
 	co << BLUE;
 	co << "Roof Roof" << nl;
 	co << RESET;
+}
+
+void Dog::setIdea(str idea, int index)
+{
+	this->brain->setIdea(idea, index);
+}
+
+void Dog::printIdea(int index)
+{
+	this->brain->printIdea(index);
+}
+
+void Dog::printMemory() const
+{
+	co << "Brain's memory: " << this->brain << nl;
 }

@@ -32,3 +32,18 @@ Brain &Brain::operator=(Brain const &rhs)
 			this->ideas[i] = rhs.ideas[i];
 	return *this;
 }
+
+str* Brain::getIdeas()
+{
+	return(ideas);
+}
+
+void Brain::setIdea(str idea, int index)
+{
+	this->ideas[index] = idea;
+}
+
+void Brain::printIdea(int index)
+{
+	co << ideas[index] << nl;
+}

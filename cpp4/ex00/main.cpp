@@ -27,10 +27,13 @@ int main()
 
 	const WrongAnimal* wmeta = new WrongAnimal();
 	const WrongAnimal* wi = new WrongCat();
+	const WrongCat* wc = new WrongCat();
 	std::cout << wi->getType() << " " << std::endl;
 	wi->makeSound();
+	wc->makeSound();
 	wmeta->makeSound();
 	delete wi;
+	delete wc;
 	delete wmeta;
 
 	delete i;

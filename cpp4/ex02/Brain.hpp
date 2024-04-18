@@ -17,6 +17,10 @@ class Brain
 		~Brain();
 		Brain &operator=(Brain const &rhs);
 
+        str* getIdeas();
+        void setIdea(str idea, int index);
+        void printIdea(int index);
+
 	private:
 		str ideas[100];
 };

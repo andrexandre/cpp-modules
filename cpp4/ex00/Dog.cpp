@@ -1,6 +1,6 @@
 #include "Dog.hpp"
 
-Dog::Dog()
+Dog::Dog() : Animal()
 {
 	co << BLUE;
 	co << "Dog Default constructor called" << nl;
@@ -8,7 +8,7 @@ Dog::Dog()
 	type = "Dog";
 }
 
-Dog::Dog(const Dog &src)
+Dog::Dog(const Dog &src) : Animal(src)
 {
 	co << BLUE;
 	co << "Dog Copy constructor called" << nl;

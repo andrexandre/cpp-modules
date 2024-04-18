@@ -1,6 +1,6 @@
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : Animal()
 {
 	co << GREEN;
 	co << "Cat Default constructor called" << nl;
@@ -8,7 +8,7 @@ Cat::Cat()
 	type = "Cat";
 }
 
-Cat::Cat(const Cat &src)
+Cat::Cat(const Cat &src) : Animal(src)
 {
 	co << GREEN;
 	co << "Cat Copy constructor called" << nl;

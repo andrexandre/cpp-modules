@@ -1,6 +1,6 @@
 #include "Cat.hpp"
 
-Cat::Cat()
+Cat::Cat() : AAnimal()
 {
 	co << GREEN;
 	co << "Cat Default constructor called" << nl;
@@ -9,7 +9,7 @@ Cat::Cat()
 	type = "Cat";
 }
 
-Cat::Cat(const Cat &src)
+Cat::Cat(const Cat &src) : AAnimal(src)
 {
 	co << GREEN;
 	co << "Cat Copy constructor called" << nl;
@@ -44,4 +44,19 @@ void Cat::makeSound() const
 	co << GREEN;
 	co << "Meow Meow" << nl;
 	co << RESET;
+}
+
+void Cat::setIdea(str idea, int index)
+{
+	this->brain->setIdea(idea, index);
+}
+
+void Cat::printIdea(int index)
+{
+	this->brain->printIdea(index);
+}
+
+void Cat::printMemory() const
+{
+	co << "Brain's memory: " << this->brain << nl;
 }

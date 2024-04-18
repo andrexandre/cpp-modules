@@ -1,13 +1,14 @@
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat()
+WrongCat::WrongCat() : WrongAnimal()
 {
 	co << YELLOW;
 	co << "WrongCat Default constructor called" << nl;
 	co << RESET;
+	type = "WrongCat";
 }
 
-WrongCat::WrongCat(const WrongCat &src)
+WrongCat::WrongCat(const WrongCat &src) : WrongAnimal(src)
 {
 	co << YELLOW;
 	co << "WrongCat Copy constructor called" << nl;

@@ -23,12 +23,20 @@ int main()
 		herd[i]->makeSound();
 	for (int i = 0; i < length; i++)
 		delete herd[i];
+    Dog basic;
+    {
+        basic.setIdea("Basic's idea start", 0);
+        Dog tmp = basic;
 
-	co << nl;
-	Dog basic;
-	{
-		Dog tmp = basic;
-		Dog tmp2 = Dog(basic);
-	}
+        tmp.printMemory();
+        basic.printMemory();
+
+        basic.setIdea("Basic's idea", 1);
+        tmp.setIdea("Tmp's idea", 1);
+        basic.printIdea(0);
+        basic.printIdea(1);
+        tmp.printIdea(0);
+        tmp.printIdea(1);
+    }
 	return 0;
 }

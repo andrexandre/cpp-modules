@@ -20,6 +20,9 @@ class Dog : public AAnimal
 
 		void makeSound() const;
 
+        void setIdea(str idea, int index);
+        void printIdea(int index);
+		void printMemory() const;
 	private:
 		Brain *brain;
 };
