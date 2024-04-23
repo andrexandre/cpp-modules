@@ -48,6 +48,8 @@ int main(int ac, char** av)
 		if (!inFile.eof())
 	 		outFile << '\n';
 	}
+	inFile.close();
+	outFile.close();
 	return 0;
 }
 
