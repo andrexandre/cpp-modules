@@ -6,7 +6,8 @@ int main(void)
 {
 	Intern someRandomIntern;
 	AForm* rrf;
-	rrf = someRandomIntern.makeForm("ShrubberyCreationForm", "Bender");
+	rrf = someRandomIntern.makeForm("RobotomyRequestForm", "Bender");
+	rrf->beExecuted();
 	delete rrf;
 	return (0);
 }

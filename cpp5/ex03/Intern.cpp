@@ -26,7 +26,6 @@ AForm *Intern::makeForm(const str &formName, const str &formTarget)
 		"ShrubberyCreationForm",
 		"RobotomyRequestForm",
 		"PresidentialPardonForm"
-		"PresidentialPardonForm"
 	};
 	int i = 0;
 	while (i < 4 && forms_str[i].compare(formName))

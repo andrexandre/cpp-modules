@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(const str &name) : AForm(name, 145, 137)
+PresidentialPardonForm::PresidentialPardonForm(const str &name) : AForm(name, 25, 5)
 {
 }
 
