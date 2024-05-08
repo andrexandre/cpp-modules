@@ -6,8 +6,11 @@ Array<T>::Array() : _size(0), _node(NULL)
 }
 
 template<typename T>
-Array<T>::Array(unsigned int n) : _size(n), _node(new T[n])
+Array<T>::Array(unsigned int n) : _size(n)
 {
+	if (n > 1000000)
+		throw std::out_of_range("Index out_of_range");
+	_node = new T[n];
 }
 
 template<typename T>
@@ -40,7 +43,7 @@ Array<T> &Array<T>::operator=(const Array<T> &rhs)
 }
 
 template<typename T>
-T& Array<T>::operator[](unsigned int index)
+T& Array<T>::operator[](unsigned int index) const
 {
 	if (index >= _size)
 		throw std::out_of_range("Index out_of_range");
