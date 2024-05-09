@@ -1,6 +1,6 @@
 #include "easyfind.hpp"
 
-int main(void)
+int main()
 {
 	return (0);
 }
