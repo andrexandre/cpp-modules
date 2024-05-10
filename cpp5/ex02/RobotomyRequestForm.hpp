@@ -8,8 +8,7 @@
 #include <iostream>
 #include <string>
 #include "AForm.hpp"
-#include <stdlib.h> // srand, rand
-#include <time.h>   // time
+#include <cstdlib>
 
 class RobotomyRequestForm : public AForm
 {
