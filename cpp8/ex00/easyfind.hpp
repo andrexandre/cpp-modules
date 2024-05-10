@@ -1,7 +1,9 @@
 #ifndef EASYFIND_HPP
 #define EASYFIND_HPP
 
-#define END   "\033[0m"
+#define SIZE 10
+#define ERROR_STR "bro's cookin 💀"
+#define END     "\033[0m"
 #define BLACK   "\033[30m"
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"

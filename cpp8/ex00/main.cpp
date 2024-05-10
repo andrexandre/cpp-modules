@@ -1,13 +1,14 @@
 #include "easyfind.hpp"
 
 template<typename T>
-void easyfill(T &container, int size, int rangeOfNum)
+void easyfill(T &container, unsigned int size, unsigned int rangeOfNum)
 {
-	srand(time(NULL));
+	if (size != SIZE)
+		return co << ERROR_STR << nl, (void)0;
 	co << "Index: ";
-	for (int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; i++)
 		container.push_back(rand() % rangeOfNum);
-	for (int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; i++)
 		co << i << " ";
 	co << nl;
 }
@@ -25,7 +26,7 @@ template<typename T>
 void easytest(T& container, int numToFind, str string)
 {
 	co << "Testing " << string << nl;
-	easyfill(container, 10, 10);
+	easyfill(container, SIZE, SIZE);
 	easyprint(container);
 	typename T::iterator it = easyfind(container, numToFind);
 	int index = std::distance(container.begin(), it);
@@ -46,6 +47,7 @@ void easytest(T& container, int numToFind, str string)
 
 int main()
 {
+	srand(time(NULL));
 	int numToFind = rand() % 10;
 	co << "Trying to find number " << numToFind << nl;
 
