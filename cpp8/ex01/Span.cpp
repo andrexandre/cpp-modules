@@ -29,51 +29,61 @@ unsigned int Span::getSize() const
 	return _size;
 }
 
-// void Span::addNumber(const int num)
-// {
-// 	if (this->_inv.size() >= this->_size ||
-// 		this->_inv.size() >= this->_inv.max_size())
-// 		throw Span::MaxSizeReachedException();
-// 	this->_inv.push_back(num);
-// }
+void Span::addNumber(const int num)
+{
+	if (this->_inv.size() >= this->_size ||
+		this->_inv.size() >= this->_inv.max_size())
+		throw Span::MaxSizeReachedException();
+	this->_inv.push_back(num);
+}
 
-// #include <numeric> // 
-// int Span::shortestSpan(void) const
-// {
-// 	if (this->_inv.size() == 0) // ... < 2
-// 		throw Span::EmptySpanException();
+#include <numeric> // 
+int Span::shortestSpan(void) const
+{
+	if (this->_inv.size() < 2)
+		throw Span::NoSpanCanBeFound();
+	std::vector<int> temp = this->_inv;
+	std::sort(temp.begin(), temp.end());
+	// calculates the adjacent_difference and puts it in each item
+	std::adjacent_difference(temp.begin(), temp.end(), temp.begin());
+	return *std::min_element(temp.begin(), temp.end());
+}
 
-// 	std::vector<int> temp = this->_inv;
-// 	std::sort(temp.begin(), temp.end());
-// 	std::adjacent_difference(temp.begin(), temp.end(), temp.begin());
+int Span::longestSpan(void) const
+{
+	if (this->_inv.size() < 2)
+		throw Span::NoSpanCanBeFound();
+	int	max = *std::max_element(this->_inv.begin(), this->_inv.end());
+	int	min = *std::min_element(this->_inv.begin(), this->_inv.end());
+	return max - min;
+}
 
-// 	return *std::min_element(temp.begin(), temp.end());
-// }
+void Span::fillWithRandom()
+{
+	srand(time(NULL));
+	for (size_t cur = 0; cur < this->_size; cur++)
+		this->addNumber(rand());
+}
 
-// int Span::longestSpan(void) const
-// {
-// 	if (this->_inv.size() == 0) // ... < 2
-// 		throw Span::EmptySpanException();
+void Span::fillWithNum(int num)
+{
+	this->_inv = std::vector<int>(this->_size, num);
+}
 
-// 	int	max = *std::max_element(this->_inv.begin(), this->_inv.end());
-// 	int	min = *std::min_element(this->_inv.begin(), this->_inv.end());
+void Span::printSpan() const
+{
+	if (this->getSize() == 0)
+		throw Span::NoSpanCanBeFound();
+	for (size_t i = 0; i < this->_inv.size(); i++)
+		co << this->_inv[i] << nl;
+}
 
-// 	return max - min;
-// }
+const char *Span::MaxSizeReachedException::what() const throw()
+{
+	return "Span::MaxSizeReachedException";
+}
 
-// void	Span::fillWithRandom(size_t num)
-// {
-// 	srand(time(NULL));
-// 	for (size_t cur = 0; cur < num; cur++)
-// 		this->addNumber(rand());
-// }
-
-// const char *Span::MaxSizeReachedException::what() const throw()
-// {
-// 	return "Span::MaxSizeReachedException";
-// }
-
-// const char *Span::EmptySpanException::what() const throw()
-// {
-// 	return "Span::EmptySpanException";
-// }
+const char *Span::NoSpanCanBeFound::what() const throw()
+{
+	return "Span::EmptySpanException";
+}

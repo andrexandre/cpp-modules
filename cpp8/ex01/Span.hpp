@@ -21,21 +21,23 @@ class Span
 
 		Span(unsigned int N);
 		unsigned int getSize() const;
-		// void addNumber(const int num);
-		// int shortestSpan(void) const;
-		// int longestSpan(void) const;
-		// void fillWithRandom(size_t num);
+		void addNumber(const int num);
+		int shortestSpan(void) const;
+		int longestSpan(void) const;
+		void fillWithRandom();
+		void fillWithNum(int num);
+		void printSpan() const;
 
-		// class MaxSizeReachedException : public std::exception
-		// {
-		// 	public:
-		// 		virtual const char *what() const throw();
-		// };
-		// class EmptySpanException : public std::exception
-		// {
-		// 	public:
-		// 		virtual const char *what() const throw();
-		// };
+		class MaxSizeReachedException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
+		class NoSpanCanBeFound : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
 
 	private:
 		std::vector<int> _inv;
