@@ -33,8 +33,8 @@ Fixed::Fixed(int const value)
 }
 
 // 1 << _fractionalBits = 256 (2^8)
-// if value = 10, 15 * 256 = 3840
-Fixed::Fixed(const float value) 
+// if value = 15, 15 * 256 = 3840
+Fixed::Fixed(const float value)
 {
 	co << "Float constructor called" << nl;
 	this->_value = roundf(value * (1 << _fractionalBits));
