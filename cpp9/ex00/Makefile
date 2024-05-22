@@ -34,7 +34,7 @@ fclean: clean
 
 re: fclean all
 
-VARS := 
+VARS := input.txt
 
 run: re
 	@./$(NAME) $(VARS)

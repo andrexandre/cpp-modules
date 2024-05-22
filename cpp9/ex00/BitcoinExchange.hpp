@@ -10,8 +10,8 @@
 #include <string>
 #include <fstream>
 #include <map>
-#include <cstdlib>
 #include <cstring>
+#include <algorithm>
 
 class BitcoinExchange
 {
