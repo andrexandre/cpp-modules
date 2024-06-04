@@ -14,7 +14,7 @@ Cat::Cat(const Cat &src) : Animal(src)
 	co << GREEN;
 	co << "Cat Copy constructor called" << nl;
 	co << RESET;
-	brain = new Brain();
+	brain = new Brain(*src.brain);
 	*this = src;
 }
 

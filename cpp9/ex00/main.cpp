@@ -1,32 +1,66 @@
 #include "BitcoinExchange.hpp"
 
+void checkDate(str date)
+{
+	int minusCount = std::count(date.begin(), date.end(), '-');
+	if (minusCount != 2)
+		co << "Error: invalid date" << nl;
+	char *num = strtok((char *)date.c_str(), "-");
+	char *end;
+	int i = strtol(num, &end, 10);
+	if (*end != '\0' || errno == ERANGE)
+		co << "Error: bad input => " << date << nl;
+	(void)i;
+}
+
 std::map<str, float> createDB(std::ifstream &dbFile)
 {
 	std::map<str, float> db;
+	bool hasError = false;
 	str line;
-	char *ptr;
 	char *end;
 	std::getline(dbFile, line);
 	while (std::getline(dbFile, line))
 	{
-		co << "line: " << line << nl;
-		int commaCount = std::count(line.begin(), line.end(), ',');
-		if (commaCount != 1)
+		// co << "line: " << line << nl;
+		if (std::count(line.begin(), line.end(), ',') != 1)
 		{
-			co << " ptr: " << commaCount << " commas" << nl;
+			co << "Error: Unrecognized line" << nl;
+			hasError = true;
 			continue;
 		}
-			// return (db.clear()), db;
-		ptr = strtok((char *)line.c_str(), ",");
-		if (ptr)
+		char *date = strtok((char *)line.c_str(), ",");
+		if (!date)
 		{
-			db[ptr] = std::strtof(strtok(NULL, ","), &end);
-			co << " ptr: " << ptr << ", f: " << db[ptr] << nl;
+			co << "Error: Unrecognized line" << nl;
+			hasError = true;
+			continue;
 		}
-		else
-			co << " ptr: error" << nl;
-			// return (db.clear()), db;
+		char *value = strtok(NULL, ",");
+		checkDate(date);
+		if (str(date).length() > 10 || !value)
+		{
+			co << "Error: Invalid value" << nl;
+			hasError = true;
+			continue;
+		}
+		float f = strtof(value, &end);
+		if (*end != '\0' || errno == ERANGE || f < 0 || f > 1000)
+		{
+			if (f < 0)
+				co << "Error: not a positive number." << nl;
+			else if (f > 1000)
+				co << "Error: too large a number." << nl;
+			else
+				co << "Error: Invalid float" << nl;
+			hasError = true;
+			continue;
+		}
+		db[date] = f;
+		co << date << " => " << db[date] << nl;
 	}
+	if (hasError)
+		return (db.clear()), db;
 	return db;
 }
 
@@ -40,13 +74,13 @@ int main(int ac, char **av)
 		return (co << "Error: could not open db." << nl), 0;
 	std::map<str, float> db = createDB(dbFile);
 	if (db.empty())
-		return (co << "Corrupted database." << nl), 0;
+		return (co << "Corrupted database 💀" << nl), 0;
 	dbFile.close();
 	std::ifstream inputFile(av[1]);
 	if (!inputFile.is_open())
 		return (co << "Error: could not open file." << nl), 0;
 	inputFile.close();
-	co << "Everything correct 💀" << nl;
+	co << "Everything correct ✅" << nl;
 	return (0);
 }
 
@@ -54,12 +88,12 @@ int main(int ac, char **av)
 Parsing:
 open data.csv
 Year-Month-Day | value
-strtok by ,
+strtok by ","
 
-strtok by |
+strtok by " | "
 check size is not 2
 
-strtok by -
+strtok by "-"
 check size is not 3
 check if str is bigger than 10 char
 check if its negative or bigger than normal date
