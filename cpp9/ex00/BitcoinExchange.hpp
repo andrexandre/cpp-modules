@@ -13,13 +13,4 @@
 #include <cstring>
 #include <algorithm>
 
-class BitcoinExchange
-{
-	public:
-		BitcoinExchange();
-		~BitcoinExchange();
-
-	private:
-};
-
 #endif

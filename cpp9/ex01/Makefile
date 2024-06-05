@@ -13,7 +13,7 @@ CXXFLAGS	:= -Wall -Wextra -Werror -g -std=c++98
 OBJSDIR		:= objs
 SRCS		:= $(wildcard *.cpp)
 OBJS		:= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
-NAME		:= btc
+NAME		:= main
 
 all: $(NAME)
 
@@ -34,7 +34,7 @@ fclean: clean
 
 re: fclean all
 
-VARS := input.txt
+VARS := 
 
 run: re
 	@./$(NAME) $(VARS)
@@ -43,33 +43,5 @@ v: re
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)
 
 e: fclean
-	@rm -f data.csv input.txt input.csv
 
-data:
-# @! test -f data.csv
-	@wget -q https://cdn.intra.42.fr/document/document/25699/cpp_09.tgz
-	@tar -xzf cpp_09.tgz
-	@mv cpp_09/data.csv .
-	@rm -rf cpp_09.tgz cpp_09
-	@echo Downloaded data.csv from intra
-
-input:
-# @! test -f input.txt
-	@printf "date | value\n\
-	2011-01-03 | 3\n\
-	2011-01-03 | 2\n\
-	2011-01-03 | 1\n\
-	2011-01-03 | 1.2\n\
-	2011-01-09 | 1\n\
-	2012-01-11 | -1\n\
-	2001-42-42\n\
-	2012-01-11 | 1\n\
-	2012-01-11 | 2147483648" > input.txt
-	@echo Created input.txt file
-
-eval:
-#@! test -f input.csv
-	@wget -q https://cdn.intra.42.fr/document/document/20226/input.csv
-	@echo Downloaded input.csv from intra
-
-.PHONY: all clean fclean re run e data input eval
+.PHONY: all clean fclean re run e
