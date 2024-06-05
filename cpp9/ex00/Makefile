@@ -8,7 +8,7 @@ CYAN		:= \033[1;36m
 WHITE		:= \033[1;37m
 
 CXX			:= c++
-CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	:= -Wall -Wextra -Werror -g -std=c++98
 
 OBJSDIR		:= objs
 SRCS		:= $(wildcard *.cpp)
@@ -46,7 +46,7 @@ e: fclean
 	@rm -f data.csv input.txt input.csv
 
 data:
-	@! test -f data.csv
+# @! test -f data.csv
 	@wget -q https://cdn.intra.42.fr/document/document/25699/cpp_09.tgz
 	@tar -xzf cpp_09.tgz
 	@mv cpp_09/data.csv .
@@ -54,7 +54,7 @@ data:
 	@echo Downloaded data.csv from intra
 
 input:
-	@! test -f input.txt
+# @! test -f input.txt
 	@printf "date | value\n\
 	2011-01-03 | 3\n\
 	2011-01-03 | 2\n\
