@@ -1,45 +1,37 @@
 #include "BitcoinExchange.hpp"
 
-int checkDate(str date)
+void checkDate(str date)
 {
 	if (std::count(date.begin(), date.end(), '-') != 2)
-		return (co << "Error: invalid date" << nl), 1;
+		throw "Error: invalid date";
 	char *end;
 
 	char *num = strtok((char *)date.c_str(), "-");
 	if (!num || str(num).length() != 4 || num[0] == '+')
-		return (co << "Error: bad 1nput" << nl), 1;
+		throw "Error: bad 1nput";
 	int i = strtol(num, &end, 10);
 	if (*end != '\0' || errno == ERANGE)
-		return (co << "Error: bad num 1nput" << nl), 1;
+		throw "Error: bad num 1nput";
 	else if (i < 1 || i > 9999)
-		return (co << "Error: invalid year" << nl), 1;
+		throw "Error: invalid year";
 
 	num = strtok(NULL, "-");
 	if (!num || str(num).length() != 2 || num[0] == '+')
-		return (co << "Error: bad 2nput" << nl), 1;
+		throw "Error: bad 2nput";
 	i = strtol(num, &end, 10);
 	if (*end != '\0' || errno == ERANGE)
-		return (co << "Error: bad num 2nput" << nl), 1;
+		throw "Error: bad num 2nput";
 	else if (i < 1 || i > 12)
-		return (co << "Error: invalid month" << nl), 1;
+		throw "Error: invalid month";
 
 	num = strtok(NULL, "-");
 	if (!num || str(num).length() != 2 || num[0] == '+')
-		return (co << "Error: bad 3nput" << nl), 1;
+		throw "Error: bad 3nput";
 	i = strtol(num, &end, 10);
 	if (*end != '\0' || errno == ERANGE)
-		return (co << "Error: bad num 3nput" << nl), 1;
+		throw "Error: bad num 3nput";
 	else if (i < 1 || i > 31)
-		return (co << "Error: invalid day" << nl), 1;
-	return 0;
-}
-
-int err(const char *error_msg, bool *tmp)
-{
-	co << error_msg << nl;
-	*tmp = true;
-	return 1;
+		throw "Error: invalid day";
 }
 
 std::map<str, float> createDB(std::ifstream &dbFile)
@@ -53,30 +45,30 @@ std::map<str, float> createDB(std::ifstream &dbFile)
 		co << "Error: first line is not \"date,exchange_rate\"" << nl;
 	while (std::getline(dbFile, line))
 	{
-		if (std::count(line.begin(), line.end(), ',') != 1 &&
-			err("Error: Unrecognized line", &hasError))
-			continue;
-		char *date = strtok((char *)line.c_str(), ",");
-		if (!date && err("Error: Unrecognized line", &hasError))
-			continue;
-		char *value = strtok(NULL, ",");
-		if ((str(date).length() != 10 || !value) &&
-			err("Error: Invalid value", &hasError))
-			continue;
-		if (checkDate(date) && (hasError = true))
-			continue;
-
-		float f = strtof(value, &end);
-		if (*end != '\0' || errno == ERANGE || f < 0)
+		try
 		{
+			if (std::count(line.begin(), line.end(), ',') != 1)
+				throw "Error: Unrecognized line";
+			char *date = strtok((char *)line.c_str(), ",");
+			if (!date)
+				throw "Error: Unrecognized line";
+			char *value = strtok(NULL, ",");
+			if (str(date).length() != 10 || !value)
+				throw "Error: Invalid value";
+			checkDate(date);
+
+			float f = strtof(value, &end);
+			if (*end != '\0' || errno == ERANGE)
+				throw "Error: Invalid float";
 			if (f < 0)
-				co << "Error: not a positive number." << nl;
-			else
-				co << "Error: Invalid float" << nl;
-			hasError = true;
-			continue;
+				throw "Error: not a positive number.";
+			db[date] = f;
 		}
-		db[date] = f;
+		catch(char const *err_msg)
+		{
+			co << err_msg << nl;
+			hasError = true;
+		}
 	}
 	if (hasError)
 		return (db.clear()), db;
@@ -103,35 +95,37 @@ void searchFile(std::ifstream &inputFile, std::map<str, float> db)
 		co << "Error: first line is not \"date | value\"" << nl;
 	while (std::getline(inputFile, line))
 	{
-		if (std::count(line.begin(), line.end(), '|') != 1 &&
-			(co << "Error: bad input => " << line << nl))
-			continue;
-		char *date = strtok((char *)line.c_str(), " | ");
-		if (!date && (co << "Error: Unrecognized line" << nl))
-			continue;
-		char *value = strtok(NULL, " | ");
-		if ((str(date).length() != 10 || !value) &&
-			(co << "Error: Invalid value" << nl))
-			continue;
-		if (checkDate(date))
-			continue;
-
-		float f = strtof(value, &end);
-		if (*end != '\0' || errno == ERANGE || f < 0 || f > 1000)
+		try
 		{
+			if (std::count(line.begin(), line.end(), '|') != 1)
+			{
+				co << "Error: bad input => " + line << nl;
+				continue;
+			}
+			char *date = strtok((char *)line.c_str(), " | ");
+			if (!date)
+				throw "Error: Unrecognized line";
+			char *value = strtok(NULL, " | ");
+			if (str(date).length() != 10 || !value)
+				throw "Error: Invalid value";
+			checkDate(date);
+
+			float f = strtof(value, &end);
+			if (*end != '\0' || errno == ERANGE)
+				throw "Error: Invalid float";
 			if (f < 0)
-				co << "Error: not a positive number." << nl;
-			else if (f > 1000)
-				co << "Error: too large a number." << nl;
-			else
-				co << "Error: Invalid float" << nl;
-			continue;
-		}
-		float res = searchDB(db, date);
-		if (res == -1)
-			co << "Error: invalid date" << nl;
-		else
+				throw "Error: not a positive number.";
+			if (f > 1000)
+				throw "Error: too large a number.";
+			float res = searchDB(db, date);
+			if (res == -1)
+				throw "Error: invalid date";
 			co << date << " => " << f << " = " << res * f << nl;
+		}
+		catch(char const *err_msg)
+		{
+			co << err_msg << nl;
+		}
 	}
 }
 
@@ -151,7 +145,7 @@ int main(int ac, char **av)
 
 	std::ifstream inputFile(av[1]);
 	if (!inputFile.is_open())
-		return (co << "Error: could not open file." << nl), 0;
+		return (co << "Error: could not input file." << nl), 0;
 	searchFile(inputFile, db);
 	inputFile.close();
 	return (0);
