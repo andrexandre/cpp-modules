@@ -156,16 +156,3 @@ int main(int ac, char **av)
 	inputFile.close();
 	return (0);
 }
-
-/*
-Parsing:
-strtok by " | " and check if " | " is not 1
-
-Outputting:
-open input.txt
-print in format:
-Year-Month-Day => value = (value * exchange rate)
-Ex.: 2011-01-03 => 1 = 0.3
-If date not exist -> use the lower date.
-*/
-// map, stack, vector/deque

@@ -13,7 +13,7 @@ CXXFLAGS	:= -Wall -Wextra -Werror -g -std=c++98
 OBJSDIR		:= objs
 SRCS		:= $(wildcard *.cpp)
 OBJS		:= $(addprefix $(OBJSDIR)/, $(SRCS:.cpp=.o))
-NAME		:= main
+NAME		:= RPN
 
 all: $(NAME)
 
@@ -34,7 +34,7 @@ fclean: clean
 
 re: fclean all
 
-VARS := 
+VARS := "1 2 +"
 
 run: re
 	@./$(NAME) $(VARS)
