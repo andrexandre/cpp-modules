@@ -34,10 +34,23 @@ fclean: clean
 
 re: fclean all
 
-VARS := 
+VARS := 3 5 9 7 4
 
 run: re
 	@./$(NAME) $(VARS)
+
+test: $(NAME)
+	@read -p "Enter the size of the array: " SIZE; \
+	./$(NAME) `shuf -i 1-100000 -n $$SIZE | tr "\n" " "`
+
+eval: $(NAME)
+	./$(NAME) 3 5 9 7 4
+	@echo
+	./$(NAME) `shuf -i 1-100000 -n 5 | tr "\n" " "`
+	@echo
+	./$(NAME) `shuf -i 1-100000 -n 3000 | tr "\n" " "`
+	@echo
+	./$(NAME) "-1" "2"
 
 v: re
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(VARS)

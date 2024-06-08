@@ -7,5 +7,11 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <deque>
+#include <algorithm>
+#include <climits>
+#include <cerrno>
+#include <sys/time.h>
 
 #endif
