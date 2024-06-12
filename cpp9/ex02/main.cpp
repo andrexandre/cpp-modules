@@ -39,7 +39,7 @@ void fjVectorSort(std::vector<int>& arr)
 	for (size_t i = 0; i < pairs.size(); ++i)
 		firstElements.push_back(pairs[i].first);
 	std::sort(firstElements.begin(), firstElements.end());
-	
+
 	// Passo 4: Inserção de Maiores
 	for (size_t i = 0; i < pairs.size(); ++i)
 	{
@@ -86,6 +86,7 @@ long long getTime()
 	return tv.tv_sec * 1000000LL + tv.tv_usec;
 }
 
+// std::is_sorted(firstElements.begin(), firstElements.end());
 // vector/deque
 int main(int ac, char **av)
 {

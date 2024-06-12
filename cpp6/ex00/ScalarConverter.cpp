@@ -10,30 +10,16 @@ ScalarConverter::~ScalarConverter() {}
 ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs)
 { (void)rhs; return *this; }
 
-int isInt(str string)
-{
-	char *end;
-	long l = strtol(string.c_str(), &end, 10);
-	if (string.length() > 12)
-		return 0;
-	else if (l < std::numeric_limits<int>::min() ||
-		l > std::numeric_limits<int>::max())
-		return 0;
-	else
-		return 1;
-}
-
 int checkType(const char *string)
 {
 	char *end;
 	if (isprint(string[0]) && !string[1] && !isdigit(string[0]))
 		return CHAR;
-	if (isInt(string))
+	if (str(string).length() < 13)
 	{
-		int i = strtol(string, &end, 10);
-		if (!(*end != '\0' || errno == ERANGE))
+		long i = strtol(string, &end, 10);
+		if (!(i < INT_MIN || i > INT_MAX || *end != '\0' || errno == ERANGE))
 			return INT;
-		(void)i;
 	}
 	float f = strtof(string, &end);
 	if (!(*end != 'f' || *(end + 1) != '\0' || errno == ERANGE))
@@ -80,19 +66,21 @@ void printInt(int i)
 	co << "double: " << d << nl;
 }
 
-void printFloat(float f, str string)
+void printFloat(float f)
 {
-	if (f < 0 || f > 127)
+	if (f < 0 || f > 127 || std::isnan(f) || std::isinf(f))
 		co << "char: impossible" << nl;
 	else if (isprint(static_cast<int>(f)))
 		co << "char: '" << static_cast<char>(f) << "'" << nl;
 	else
 		co << "char: Non displayable" << nl;
 	int i = static_cast<int>(f);
-	if (isInt(string))
-		co << "int: " << i << nl;
-	else
+	if (floor(f) < std::numeric_limits<int>::min()
+	  || ceil(f) > std::numeric_limits<int>::max()
+	  || std::isnan(f) || std::isinf(f))
 		co << "int: impossible" << nl;
+	else
+		co << "int: " << i << nl;
 	if (std::floor(f) == f)
 		co << std::fixed << std::setprecision(1);
 	co << "float: " << f << 'f' << nl;
@@ -102,19 +90,21 @@ void printFloat(float f, str string)
 	co << "double: " << d << nl;
 }
 
-void printDouble(double d, str string)
+void printDouble(double d)
 {
-	if (d < 0 || d > 127)
+	if (d < 0 || d > 127 || std::isnan(d) || std::isinf(d))
 		co << "char: impossible" << nl;
 	else if (isprint(static_cast<int>(d)))
 		co << "char: '" << static_cast<char>(d) << "'" << nl;
 	else
 		co << "char: Non displayable" << nl;
 	int i = static_cast<int>(d);
-	if (isInt(string))
-		co << "int: " << i << nl;
-	else
+	if (floor(d) < std::numeric_limits<int>::min()
+	  || ceil(d) > std::numeric_limits<int>::max()
+	  || std::isnan(d) || std::isinf(d))
 		co << "int: impossible" << nl;
+	else
+		co << "int: " << i << nl;
 	float f = static_cast<float>(d);
 	if (std::floor(f) == f)
 		co << std::fixed << std::setprecision(1);
@@ -124,58 +114,10 @@ void printDouble(double d, str string)
 	co << "double: " << d << nl;
 }
 
-void printNanInf(int i)
-{
-	co << "char: impossible" << nl;
-	co << "int: impossible" << nl;
-	if (!i)
-	{
-		co << "float: nanf" << nl;
-		co << "double: nan" << nl;
-	}
-	else if (i == 1)
-	{
-		co << "float: inff" << nl;
-		co << "double: inf" << nl;
-	}
-	else
-	{
-		co << "float: -inff" << nl;
-		co << "double: -inf" << nl;
-	}
-	exit(0);
-}
-
-void checkNanInf(const char *string, int n)
-{
-	char *end;
-	if (n == FLOAT)
-	{
-		float f = strtof(string, &end);
-		if (std::isnan(f))
-			printNanInf(0);
-		else if (f == -std::numeric_limits<float>::infinity())
-			printNanInf(2);
-		else if (std::isinf(f))
-			printNanInf(1);
-	}
-	else if (n == DOUBLE)
-	{
-		double d = strtod(string, &end);
-		if (std::isnan(d))
-			printNanInf(0);
-		else if (d == -std::numeric_limits<double>::infinity())
-			printNanInf(2);
-		else if (std::isinf(d))
-			printNanInf(1);
-	}
-}
-
 void ScalarConverter::convert(str string)
 {
 	const char *cstring = string.c_str();
 	int type = checkType(cstring);
-	checkNanInf(cstring, type);
 	switch (type)
 	{
 		char *end;
@@ -186,10 +128,10 @@ void ScalarConverter::convert(str string)
 			printInt(strtol(cstring, &end, 10));
 			break;
 		case FLOAT:
-			printFloat(strtof(cstring, &end), string);
+			printFloat(strtof(cstring, &end));
 			break;
 		case DOUBLE:
-			printDouble(strtod(cstring, &end), string);
+			printDouble(strtod(cstring, &end));
 			break;
 		default:
 			co << RED "Invalid type!" END << nl;

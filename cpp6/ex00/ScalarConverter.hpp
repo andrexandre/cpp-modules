@@ -22,6 +22,7 @@
 #include <iomanip>
 #include <cmath>
 #include <limits>
+#include <climits>
 
 enum Type { CHAR, INT, FLOAT, DOUBLE };
 

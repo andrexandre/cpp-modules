@@ -72,4 +72,13 @@ eval:
 	@wget -q https://cdn.intra.42.fr/document/document/20226/input.csv
 	@echo Downloaded input.csv from intra
 
-.PHONY: all clean fclean re run e data input eval
+check:
+	@grep -r -o -w '\w*alloc\w*' ..
+	@grep -r -o -w '\w*printf\w*' ..
+	@grep -r -o -w '\w*free\w*' ..
+	@grep -r -o -w '\w*using namespace\w*' ..
+	@grep -r -o -w '\w*friend\w*' ..
+	@echo
+	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98\w*' ..
+
+.PHONY: all clean fclean re run e data input eval check
