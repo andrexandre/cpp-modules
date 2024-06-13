@@ -46,7 +46,6 @@ e: fclean
 	@rm -f data.csv input.txt input.csv
 
 data:
-# @! test -f data.csv
 	@wget -q https://cdn.intra.42.fr/document/document/25699/cpp_09.tgz
 	@tar -xzf cpp_09.tgz
 	@mv cpp_09/data.csv .
@@ -54,7 +53,6 @@ data:
 	@echo Downloaded data.csv from intra
 
 input:
-# @! test -f input.txt
 	@printf "date | value\n\
 	2011-01-03 | 3\n\
 	2011-01-03 | 2\n\
@@ -67,10 +65,14 @@ input:
 	2012-01-11 | 2147483648" > input.txt
 	@echo Created input.txt file
 
-eval:
-#@! test -f input.csv
-	@wget -q https://cdn.intra.42.fr/document/document/20226/input.csv
+file:
+	@wget -O input.csv -q https://cdn.intra.42.fr/document/document/20226/input.csv
 	@echo Downloaded input.csv from intra
+
+eval: data input file
+	./$(NAME) input.txt
+	@echo
+	./$(NAME) input.csv
 
 check:
 	@grep -r -o -w '\w*alloc\w*' ..
@@ -79,6 +81,6 @@ check:
 	@grep -r -o -w '\w*using namespace\w*' ..
 	@grep -r -o -w '\w*friend\w*' ..
 	@echo
-	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -std=c++98\w*' ..
+	@grep -r -o -w '\w*CXXFLAGS	:= -Wall -Wextra -Werror -g -std=c++98\w*' ..
 
-.PHONY: all clean fclean re run e data input eval check
+.PHONY: all clean fclean re run e data input file eval check

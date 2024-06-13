@@ -57,4 +57,4 @@ v: re
 
 e: fclean
 
-.PHONY: all clean fclean re run e
+.PHONY: all clean fclean re run e test eval

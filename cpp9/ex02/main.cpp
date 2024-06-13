@@ -25,9 +25,7 @@ void fjVectorSort(std::vector<int> &arr)
 
 	fjVectorSort(lesser);
 	for (size_t i = 0; i < greater.size(); ++i)
-	{
 		lesser.insert(std::upper_bound(lesser.begin(), lesser.end(), greater[i]), greater[i]);
-	}
 	arr = lesser;
 	// std::swap(arr[0], arr[1]);
 }
@@ -57,9 +55,7 @@ void fjDequeSort(std::deque<int> &arr)
 
 	fjDequeSort(lesser);
 	for (size_t i = 0; i < greater.size(); ++i)
-	{
 		lesser.insert(std::upper_bound(lesser.begin(), lesser.end(), greater[i]), greater[i]);
-	}
 	arr = lesser;
 }
 

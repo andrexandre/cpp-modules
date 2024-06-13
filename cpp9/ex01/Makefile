@@ -44,4 +44,9 @@ v: re
 
 e: fclean
 
-.PHONY: all clean fclean re run e
+eval: $(NAME)
+	./$(NAME) "8 9 * 9 - 9 - 9 - 4 - 1 +"
+	./$(NAME) "9 8 * 4 * 4 / 2 + 9 - 8 - 8 - 1 - 6 -"
+	./$(NAME) "1 2 * 2 / 2 + 5 * 6 - 1 3 * - 4 5 * * 8 /"
+
+.PHONY: all clean fclean re run e eval

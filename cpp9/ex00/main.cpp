@@ -68,6 +68,7 @@ std::map<str, float> createDB(std::ifstream &dbFile)
 		{
 			co << err_msg << nl;
 			hasError = true;
+			errno = 0;
 		}
 	}
 	if (hasError)
@@ -125,6 +126,7 @@ void searchFile(std::ifstream &inputFile, std::map<str, float> db)
 		catch(char const *err_msg)
 		{
 			co << err_msg << nl;
+			errno = 0;
 		}
 	}
 }

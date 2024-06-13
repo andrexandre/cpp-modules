@@ -58,8 +58,13 @@ void execution(STR input)
 				res = fst * snd;
 				break;
 			case '/':
-				res = fst / snd;
-				break;
+				if (snd != 0)
+					res = fst / snd;
+				else
+				{
+					co << "undefined ඞ" << nl;
+					exit(0);
+				}
 			}
 			st.push(res);
 		}
