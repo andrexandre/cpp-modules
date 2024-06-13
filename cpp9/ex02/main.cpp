@@ -1,55 +1,66 @@
 #include "PmergeMe.hpp"
 
-int binarySearchInsertPos(const std::vector<int>& sorted, int element)
+void fjVectorSort(std::vector<int> &arr)
 {
-	int low = 0;
-	int high = sorted.size();
-	while (low < high)
-	{
-		int mid = (low + high) / 2;
-		if (sorted[mid] < element)
-			low = mid + 1;
-		else
-			high = mid;
-	}
-	return low;
-}
+	size_t size = arr.size();
+	if (size <= 1)
+		return;
 
-void fjVectorSort(std::vector<int>& arr)
-{
-	int n = arr.size();
-	
-	// Passo 1: Divisão Inicial
-	std::vector< std::pair<int, int> > pairs;
-	for (int i = 0; i < n; i += 2) 
+	std::vector<int> lesser, greater;
+	for (size_t i = 0; i < size - 1; i += 2)
 	{
-		if (i + 1 < n)
-			pairs.push_back(std::make_pair(arr[i], arr[i + 1]));
-		else
-			pairs.push_back(std::make_pair(arr[i], -1));
-	}
-	
-	// Passo 2: Ordenação de Pares
-	for (size_t i = 0; i < pairs.size(); ++i)
-		if (pairs[i].second != -1 && pairs[i].first > pairs[i].second)
-			std::swap(pairs[i].first, pairs[i].second);
-	
-	// Passo 3: Intercalação Inicial
-	std::vector<int> firstElements;
-	for (size_t i = 0; i < pairs.size(); ++i)
-		firstElements.push_back(pairs[i].first);
-	std::sort(firstElements.begin(), firstElements.end());
-
-	// Passo 4: Inserção de Maiores
-	for (size_t i = 0; i < pairs.size(); ++i)
-	{
-		if (pairs[i].second != -1)
+		if (arr[i] < arr[i + 1])
 		{
-			int pos = binarySearchInsertPos(firstElements, pairs[i].second);
-			firstElements.insert(firstElements.begin() + pos, pairs[i].second);
+			lesser.push_back(arr[i]);
+			greater.push_back(arr[i + 1]);
+		}
+		else
+		{
+			lesser.push_back(arr[i + 1]);
+			greater.push_back(arr[i]);
 		}
 	}
-	arr = firstElements;
+	if (size % 2 != 0)
+		lesser.push_back(arr.back());
+
+	fjVectorSort(lesser);
+	for (size_t i = 0; i < greater.size(); ++i)
+	{
+		lesser.insert(std::upper_bound(lesser.begin(), lesser.end(), greater[i]), greater[i]);
+	}
+	arr = lesser;
+	// std::swap(arr[0], arr[1]);
+}
+
+void fjDequeSort(std::deque<int> &arr)
+{
+	size_t size = arr.size();
+	if (size <= 1)
+		return;
+
+	std::deque<int> lesser, greater;
+	for (size_t i = 0; i < size - 1; i += 2)
+	{
+		if (arr[i] < arr[i + 1])
+		{
+			lesser.push_back(arr[i]);
+			greater.push_back(arr[i + 1]);
+		}
+		else
+		{
+			lesser.push_back(arr[i + 1]);
+			greater.push_back(arr[i]);
+		}
+	}
+	if (size % 2 != 0)
+		lesser.push_back(arr.back());
+
+	fjDequeSort(lesser);
+	for (size_t i = 0; i < greater.size(); ++i)
+	{
+		lesser.insert(std::upper_bound(lesser.begin(), lesser.end(), greater[i]), greater[i]);
+	}
+	arr = lesser;
 }
 
 void printArray(std::vector<int> &vec, std::deque<int> &deq)
@@ -86,8 +97,9 @@ long long getTime()
 	return tv.tv_sec * 1000000LL + tv.tv_usec;
 }
 
-// std::is_sorted(firstElements.begin(), firstElements.end());
-// vector/deque
+// vector is an array and deque is a linked list
+// so the vector is faster because it stores its
+// elements in a contiguous block of memory
 int main(int ac, char **av)
 {
 	if (ac == 1)
@@ -100,14 +112,12 @@ int main(int ac, char **av)
 	co << "Before:  ";
 	printArray(vec, deq);
 	long long startTime = getTime();
-	// fjVectorSort(vec);
-	std::sort(vec.begin(), vec.end());
+	fjVectorSort(vec);
 	long long endTime = getTime();
 
 	long long sortingTime = endTime - startTime;
 	startTime = getTime();
-	// fjDequeSort(deq);
-	std::sort(deq.begin(), deq.end());
+	fjDequeSort(deq);
 	endTime = getTime();
 
 	co << "After:   ";
