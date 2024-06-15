@@ -44,6 +44,15 @@ v: re
 
 e: fclean
 
+test: $(NAME)
+	@wget -qO tester.sh https://pastebin.com/raw/JakmLrXc
+	@sed -i 's/\r/\n/g' tester.sh
+	@awk 'BEGIN{RS="\n\n";ORS="\n"}1' tester.sh > tester_fixed.sh
+	@mv tester_fixed.sh tester.sh
+	@chmod 777 tester.sh
+	@./tester.sh
+	@rm tester.sh
+
 check:
 	@grep -r -o -w '\w*alloc\w*' ..
 	@grep -r -o -w '\w*printf\w*' ..
