@@ -34,6 +34,8 @@ Array<T> &Array<T>::operator=(const Array<T> &rhs)
 {
 	if (this != &rhs)
 	{
+		if (this->_node)
+			delete[] this->_node;
 		this->_size = rhs._size;
 		this->_node = new T[this->_size];
 		for (unsigned int i = 0; i < this->_size; i++)
