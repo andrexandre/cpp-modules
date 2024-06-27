@@ -22,6 +22,7 @@ Span &Span::operator=(const Span &rhs)
 
 Span::Span(unsigned int N) : _size(N)
 {
+	_inv.reserve(N);
 }
 
 unsigned int Span::getSize() const
@@ -37,7 +38,6 @@ void Span::addNumber(const int num)
 	this->_inv.push_back(num);
 }
 
-#include <numeric> // 
 int Span::shortestSpan(void) const
 {
 	if (this->_inv.size() < 2)

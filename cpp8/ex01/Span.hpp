@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <vector>
 #include <cstdlib>
+#include <numeric>
 
 class Span
 {
