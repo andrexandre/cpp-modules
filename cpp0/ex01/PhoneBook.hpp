@@ -14,6 +14,7 @@
 #include <iomanip> // std::setw
 #include <iostream> // std::cout
 #include <string> // std::string
+#include <csignal> // std::signal
 #include "Contact.hpp"
 
 #define MAX_CONTACTS 8

@@ -124,9 +124,11 @@ PhoneBook::PhoneBook()
 
 int main(void)
 {
+	std::signal(SIGINT, SIG_IGN);
+	std::signal(SIGQUIT, SIG_IGN);
 	PhoneBook	mafb;
 	string	cmd;
-	cout << WHITE "Welcome to MyAwesomePhoneBook" << endl;
+	cout << WHITE "Welcome to My PhoneBook" << endl;
 	cout << "Please enter your command" << endl;
 	cout << "Commands: " GREEN "ADD" RESET ", " BLUE "SEARCH";
 	cout << RESET ", " RED "EXIT" RESET << endl;
