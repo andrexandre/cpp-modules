@@ -15,7 +15,7 @@ bool parsingError(STR str)
 		digitCounter = 0,
 		operationCounter = 0;
 	std::stringstream ss(str);
-	while (ss >> str)https://www.google.com/search?sca_esv=360d606574466e04&biw=1920&bih=911&sxsrf=ADLYWIL6vMurwBTBFxUVRY2XvpMAGkxUqA:1733497646236&q=Jacobsthal+numbers&source=lnms&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3JyJJclJuzBPl12qJyPx7ESI3cvVcqCdLSFFSD0xy83Mxw5VfItgi7r_Cn7smOncBUAR5RxAPnHf8VakeHGZjYFl6tkX8aXn-STnDnC7kirxfPzyvwuy6yG0ppW8USwHesglRN-Y&sa=X&ved=2ahUKEwix1rD7tZOKAxWMT6QEHc0qGNoQ0pQJegQIEBAB
+	while (ss >> str)
 	{
 		if (str[1])
 			return 1;
