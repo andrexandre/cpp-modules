@@ -46,7 +46,8 @@ e: fclean
 	@rm -f data.csv input.txt input.csv
 
 data:
-	@wget -q https://cdn.intra.42.fr/document/document/25699/cpp_09.tgz
+	@read -p "Download cpp_09.tgz here and press any key (Ctrl+C to quit): " key
+# @wget -q https://cdn.intra.42.fr/document/document/25699/cpp_09.tgz
 	@tar -xzf cpp_09.tgz
 	@mv cpp_09/data.csv .
 	@rm -rf cpp_09.tgz cpp_09
